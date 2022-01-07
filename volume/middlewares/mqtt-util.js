@@ -1,7 +1,7 @@
 const mqtt = require('mqtt')
 
 const mqttConnectionCheck = (req, res, next) => {
-  const client = mqtt.connect('mqtt://mqtt:1883')
+  const client = mqtt.connect('mqtt://localhost:1883')
   client.on('connect', () => {
     console.log('connected')
     next()
@@ -14,7 +14,7 @@ const mqttConnectionCheck = (req, res, next) => {
 }
 
 const simulatorStart = (req, res, next) => {
-  const client = mqtt.connect('mqtt://mqtt:1883')
+  const client = mqtt.connect('mqtt://localhost:1883')
   const timedefault = req.body.endtime ? req.body.endtime : 2
   client.on('connect', () => {
     console.log('connected')
@@ -27,7 +27,8 @@ const simulatorStart = (req, res, next) => {
   const dataPublish = setInterval(() => {
     const json = {
       'temperature': (Math.random()*(26-19) + 19).toFixed(2),
-      'humidity': (Math.random()*(60-64) + 60).toFixed(2)
+      'humidity': (Math.random()*(60-64) + 60).toFixed(2),
+      'datetime': new Date()
     }
     client.publish('metacamp/sensor', JSON.stringify(json))
   }, 1000)

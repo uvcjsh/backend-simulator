@@ -19,8 +19,8 @@ app.use((err, req, res, next) => {
   res.send(err)
 })
 
-app.listen(3000, () => {
-  console.log("3000번 포트에서 실행중!")
+app.listen(3001, () => {
+  console.log("3001번 포트에서 실행중!")
 })
 
 
